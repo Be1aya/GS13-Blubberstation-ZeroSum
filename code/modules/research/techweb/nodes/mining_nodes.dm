@@ -20,6 +20,7 @@
 		"titaniumglass",
 		"plastitanium",
 		"plastitaniumglass",
+		"calorite_glass",
 	)
 
 /datum/techweb_node/mining
