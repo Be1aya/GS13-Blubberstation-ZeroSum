@@ -12,9 +12,9 @@
 
 	// basic settings
 	// how much real_fat is being added from interaction
-	var/real_fat_to_add
+	var/real_fatness_amount
 	// how much perma_fat is being added from interaction
-	var/perma_fat_to_add = 0
+	var/perma_fatness_amount = 0
 	// type of fattening
 	var/fattening_type = FATTENING_TYPE_MAGIC
 	// whether we ignore the WG/L rate
@@ -40,11 +40,14 @@
  * * fattening_type - the type of fattening (item, weapon, magic, etc). Required
  * * perma_fatness_amount - amount of perma fatness the touching person obtains. Default 0
  * * ignore_rate - do we ignore WG/L rate. Default FALSE
- * * fatten_from_item_touch - can we be fattened despite using an item to interact with the object. Default FALSE
+ * * touch - can we be fattened by touching this with out bare hands. Default TRUE
+ * * item_touch - can we be fattened despite using an item to interact with the object. Default FALSE
+ * * bumped - can we be fattened by bumping into this object. Default TRUE
+ * * pass_through - can we be fattened by passing through this object/tile it is on. Default FALSE
  */
 /datum/component/fattening/Initialize(
 	real_fatness_amount,
-	type_of_fattening,
+	fattening_type,
 	perma_fatness_amount = 0,
 	ignore_rate = FALSE,
 	touch = TRUE,
@@ -52,10 +55,10 @@
 	bumped = TRUE,
 	pass_through = FALSE
 )
-	real_fat_to_add = real_fatness_amount
-	perma_fat_to_add = perma_fatness_amount
-	fattening_type = type_of_fattening
-	ignore_rate = ignore_rate
+	src.real_fatness_amount = real_fatness_amount
+	src.fattening_type = fattening_type
+	src.perma_fatness_amount = perma_fatness_amount
+	src.ignore_rate = ignore_rate
 	src.touch = touch
 	src.item_touch = item_touch
 	src.bumped = bumped
@@ -82,12 +85,14 @@
  * 
  */
 /datum/component/fattening/proc/fatten(mob/living/carbon/fatty)
-	fatty.adjust_fatness(real_fat_to_add, fattening_type, ignore_rate)
-	fatty.adjust_perma(perma_fat_to_add, fattening_type, ignore_rate)
+	fatty.adjust_fatness(real_fatness_amount, fattening_type, ignore_rate)
+	fatty.adjust_perma(perma_fatness_amount, fattening_type, ignore_rate)
 
 /**
- * receives a signal when our object was touched by an empty hand. if the mob
- * is a carbon, calls fatten on them. Returns False otherwise
+ * receives a signal when our object was touched by an empty hand. If the mob
+ * is a carbon, checks if they have gloves on. If they don't, calls fatten of them. 
+ * If they are wearing gloves, it checks if we can fatten through items, and if yes, calls fatten on them. 
+ * Returns False otherwise
  */
 /datum/component/fattening/proc/touch(atom/parent, mob/user)
 	SIGNAL_HANDLER
@@ -95,6 +100,9 @@
 		return FALSE
 	
 	var/mob/living/carbon/fatty = user
+	// if we have gloves on, don't fatten. Unless we can fatten through items, then fuckem
+	if (!isnull(fatty.gloves) && !item_touch)
+		return FALSE
 	fatten(fatty)
 
 /**

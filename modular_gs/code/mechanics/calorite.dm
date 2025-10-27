@@ -39,7 +39,7 @@
 		source_obj.damtype = FAT
 		source_obj.AddComponent(\
 		/datum/component/fattening,\
-		5 * amount,\
+		amount / 100,\
 		FATTENING_TYPE_ITEM\
 		)
 
@@ -82,6 +82,15 @@
 	merge_type = /obj/item/stack/sheet/mineral/calorite
 	material_type = /datum/material/calorite
 	walltype = /turf/closed/wall/mineral/calorite
+
+/obj/item/stack/sheet/mineral/calorite/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt)
+	. = ..()
+	AddComponent(\
+		/datum/component/fattening,\
+		2,\
+		FATTENING_TYPE_ITEM\
+		)
+
 
 /obj/item/stack/sheet/mineral/calorite/get_main_recipes()
 	. = ..()

@@ -15,7 +15,12 @@
 	. = ..()
 	proximity_monitor = new(src, 1, FALSE)
 	proximity_monitor.set_host(src, src)
-	// RegisterSignal(src, COMSIG_MOVABLE_CROSS, .proc/on_crossed)
+	AddComponent(\
+		/datum/component/fattening,\
+		25,\
+		FATTENING_TYPE_ITEM,\
+		item_touch = TRUE,\
+		)
 
 /obj/structure/statue/calorite/fatty/proc/beckon()
 	if(!active)
@@ -29,7 +34,7 @@
 	return
 
 /obj/structure/statue/calorite/fatty/proc/statue_fatten(mob/living/carbon/M, touch = TRUE)
-	if(!M.adjust_fatness(20, FATTENING_TYPE_ITEM))
+	if(!M.check_weight_prefs(FATTENING_TYPE_ITEM))
 		to_chat(M, "<span class='warning'>Nothing happens.</span>")
 		return
 
