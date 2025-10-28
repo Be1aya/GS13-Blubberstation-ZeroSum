@@ -11,13 +11,13 @@
 	var/last_event = 0
 
 /turf/closed/wall/mineral/calorite/Initialize(mapload)
-	. = ..()
 	AddComponent(\
 		/datum/component/fattening,\
 		30,\
 		FATTENING_TYPE_ITEM,\
 		item_touch = TRUE\
 	)
+	. = ..()
 
 // /turf/closed/wall/mineral/calorite/proc/fatten()
 // 	if(!active)

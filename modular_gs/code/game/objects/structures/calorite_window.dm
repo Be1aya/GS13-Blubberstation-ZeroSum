@@ -15,7 +15,6 @@
 	glass_material_datum = /datum/material/alloy/calorite_glass
 
 /obj/structure/window/calorite/Initialize(mapload, direct)
-	. = ..()
 	// fattening amount half that of a calorite wall - because you can push it,
 	// and we probably don't wanna someone to bloat up just from pushing it across
 	// the hallway. Lore reason is that it's calorite and glass so not as potent
@@ -25,6 +24,7 @@
 		FATTENING_TYPE_ITEM,\
 		item_touch = TRUE\
 	)
+	. = ..()
 
 /obj/structure/window/calorite/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

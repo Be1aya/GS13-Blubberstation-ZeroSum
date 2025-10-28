@@ -84,12 +84,12 @@
 	walltype = /turf/closed/wall/mineral/calorite
 
 /obj/item/stack/sheet/mineral/calorite/Initialize(mapload, new_amount, merge, list/mat_override, mat_amt)
-	. = ..()
 	AddComponent(\
 		/datum/component/fattening,\
 		2,\
 		FATTENING_TYPE_ITEM\
 		)
+	. = ..()
 
 
 /obj/item/stack/sheet/mineral/calorite/get_main_recipes()

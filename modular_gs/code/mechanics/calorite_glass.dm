@@ -64,21 +64,18 @@ GLOBAL_LIST_INIT(calorite_glass_recipes, list ( \
 	fishing_experience_multiplier = 1.3
 	fishing_gravity_mult = 0.9
 
-/datum/material/alloy/calorite_glass/on_applied(atom/source, amount, multiplier) // used to be material_flags instead of multiplier
+/datum/material/alloy/calorite_glass/on_applied(atom/source, amount, multiplier)
 	. = ..()
 
 	if (isobj(source))
 		var/obj/source_obj = source
 		source_obj.damtype = FAT
 
-/datum/material/alloy/calorite_glass/on_removed(atom/source, multiplier) // used to be material_flags instead of multiplier
-	// if(!(material_flags & MATERIAL_AFFECT_STATISTICS))
-	// 	return ..()
-
+/datum/material/alloy/calorite_glass/on_removed(atom/source, multiplier)
 	if (isobj(source))
 		var/obj/source_obj = source
 		source_obj.damtype = initial(source_obj.damtype)
-		return ..()
+	return ..()
 
 /obj/item/shard/calorite_glass
 	name = "orange shard"
