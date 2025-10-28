@@ -8,7 +8,7 @@
 	buildstacktype = /obj/item/stack/sheet/calorite_glass
 	buildstackamount = 5
 
-/obj/structure/reflector/single/calorite/anchored = 
+/obj/structure/reflector/single/calorite/anchored
 	anchored = TRUE
 
 /obj/structure/reflector/single/auto_reflect(obj/projectile/proj, pdir, turf/ploc, pangle)
