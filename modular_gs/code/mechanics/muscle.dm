@@ -42,7 +42,7 @@
 	if(custom_stamina_cost != null)
 		stamina_cost = custom_stamina_cost
 
-	if(!adjustStaminaLoss(stamina_cost))
+	if(stamina_cost && !adjustStaminaLoss(stamina_cost))
 		return FALSE
 
 	// Alright, we have pain, now time for gain. How ripped are we getting from this?
