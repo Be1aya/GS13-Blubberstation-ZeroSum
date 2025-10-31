@@ -1,0 +1,57 @@
+/obj/item/clothing/neck/supermatter_pendant
+	name = "Supermatter Pendant"
+	desc = "A tiny capsule containing a piece of the Supermatter crystal, suspended in Hyper-Noblium gas."
+	icon = 'modular_gs/icons/obj/clothing/neck.dmi'
+	worn_icon = 'modular_gs/icons/mob/clothing/neck.dmi'
+	icon_state = "supermatter_pendant"
+	w_class = WEIGHT_CLASS_TINY
+	strip_delay = 2 SECONDS
+	equip_delay_other = 2 SECONDS
+	actions_types = list(/datum/action/item_action/toggle_light)
+	action_slots = ALL
+	light_system = OVERLAY_LIGHT
+	light_color = COLOR_VERY_SOFT_YELLOW
+	light_range = 2
+	light_power = 1
+	light_on = TRUE
+	COOLDOWN_DECLARE(disabled_time)
+	var/toggle_context = TRUE
+	var/start_on = TRUE
+
+/obj/item/clothing/neck/supermatter_pendant/Initialize(mapload)
+	. = ..()
+	if(start_on)
+		set_light_on(TRUE)
+
+/obj/item/clothing/neck/supermatter_pendant/proc/update_brightness()
+	update_appearance(UPDATE_ICON)
+	if(light_system == COMPLEX_LIGHT)
+		update_light()
+
+/obj/item/clothing/neck/supermatter_pendant/proc/toggle_light(mob/user)
+	playsound(src, SFX_SM_CALM, 25, FALSE, 40, 30, falloff_distance = 10)
+	if(!COOLDOWN_FINISHED(src, disabled_time))
+		if(user)
+			balloon_alert(user, "disrupted!")
+		set_light_on(FALSE)
+		update_brightness()
+		update_item_action_buttons()
+		return FALSE
+	var/old_light_on = light_on
+	set_light_on(!light_on)
+	update_brightness()
+	update_item_action_buttons()
+	return light_on != old_light_on // If the value of light_on didn't change, return false. Otherwise true.
+
+/obj/item/clothing/neck/supermatter_pendant/attack_self(mob/user)
+	return toggle_light(user)
+
+/obj/item/clothing/neck/supermatter_pendant/attack_hand_secondary(mob/user, list/modifiers)
+	attack_self(user)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+/obj/item/clothing/neck/supermatter_pendant/suicide_act(mob/living/carbon/human/user)
+	user.visible_message(span_suicide("[user] is opening the top of [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	playsound(src, SFX_SM_DELAM, 25, FALSE, 40, 30, falloff_distance = 10)
+	user.dust(force = TRUE)
+	return MANUAL_SUICIDE
