@@ -51,7 +51,7 @@ export const ScalePanel = (props) => {
             </LabeledList.Item>
             <LabeledList.Item label="Muscle">
               <ProgressBar value={total_muscle} maxValue={total_weight}>
-                {total_muscle_pounds} {'Pounads ('}
+                {total_muscle_pounds} {'Pounds ('}
                 {total_muscle} {' MMI)'}
               </ProgressBar>
             </LabeledList.Item>
