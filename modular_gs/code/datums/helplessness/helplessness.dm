@@ -7,13 +7,10 @@
 	lose_message = "You have become thin enough to regain some of your mobility."
 
 /datum/helplessness/immobile/get_trigger_weight(mob/living/carbon/human/fatty)
-	// we assume sanity_checks were run already and that we do, indeed, have both
-	// a client and that client has preferences
 	var/datum/preferences/preferences = fatty.client.prefs
 
 	var/trigger_weight = preferences.read_preference(preference.type)
 
-	// if the player has a related helplessness quirk, override the trigger weight with the default
 	if (HAS_TRAIT(fatty, override_quirk))
 		trigger_weight = default_trigger_weight
 		if (HAS_TRAIT(fatty, TRAIT_STRONGLEGS))
@@ -33,7 +30,6 @@
 
 /datum/helplessness/clumsy/apply_helplessness(mob/living/carbon/human/fatty, trigger_weight, fatness)
 	. = ..()
-	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
 	if (should_be_active)
@@ -98,7 +94,6 @@
 
 /datum/helplessness/immobile_arms/apply_helplessness(mob/living/carbon/human/fatty, trigger_weight, fatness)
 	. = ..()
-	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
 	if (should_be_active)
@@ -125,11 +120,13 @@
 	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
-	if (should_be_active)
-		var/obj/item/clothing/under/jumpsuit = fatty.w_uniform
-		if(istype(jumpsuit) && jumpsuit.modular_icon_location == null)
-			to_chat(fatty, span_warning("[jumpsuit] can no longer contain your weight!"))
-			fatty.dropItemToGround(jumpsuit)
+	if (!should_be_active)
+		return should_be_active
+	
+	var/obj/item/clothing/under/jumpsuit = fatty.w_uniform
+	if(istype(jumpsuit) && jumpsuit.modular_icon_location == null)
+		to_chat(fatty, span_warning("[jumpsuit] can no longer contain your weight!"))
+		fatty.dropItemToGround(jumpsuit)
 	
 	return should_be_active
 
@@ -146,21 +143,23 @@
 	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
-	if (should_be_active)
-		var/obj/item/clothing/suit/worn_suit = fatty.wear_suit
-		if(istype(worn_suit) && !istype(worn_suit, /obj/item/clothing/suit/mod))
-			to_chat(fatty, span_warning("[worn_suit] can no longer contain your weight!"))
-			fatty.dropItemToGround(worn_suit)
+	if (!should_be_active)
+		return should_be_active
+	
+	var/obj/item/clothing/suit/worn_suit = fatty.wear_suit
+	if(istype(worn_suit) && !istype(worn_suit, /obj/item/clothing/suit/mod))
+		to_chat(fatty, span_warning("[worn_suit] can no longer contain your weight!"))
+		fatty.dropItemToGround(worn_suit)
 
-		var/obj/item/clothing/gloves/worn_gloves = fatty.gloves
-		if(istype(worn_gloves)&& !istype(worn_gloves, /obj/item/clothing/gloves/mod))
-			to_chat(fatty, span_warning("[worn_gloves] can no longer contain your weight!"))
-			fatty.dropItemToGround(worn_gloves)
+	var/obj/item/clothing/gloves/worn_gloves = fatty.gloves
+	if(istype(worn_gloves)&& !istype(worn_gloves, /obj/item/clothing/gloves/mod))
+		to_chat(fatty, span_warning("[worn_gloves] can no longer contain your weight!"))
+		fatty.dropItemToGround(worn_gloves)
 
-		var/obj/item/clothing/shoes/worn_shoes = fatty.shoes
-		if(istype(worn_shoes) && !istype(worn_shoes, /obj/item/clothing/shoes/mod))
-			to_chat(fatty, span_warning("[worn_shoes] can no longer contain your weight!"))
-			fatty.dropItemToGround(worn_shoes)
+	var/obj/item/clothing/shoes/worn_shoes = fatty.shoes
+	if(istype(worn_shoes) && !istype(worn_shoes, /obj/item/clothing/shoes/mod))
+		to_chat(fatty, span_warning("[worn_shoes] can no longer contain your weight!"))
+		fatty.dropItemToGround(worn_shoes)
 	
 	return should_be_active
 
@@ -174,22 +173,23 @@
 
 /datum/helplessness/belt_bursting/apply_helplessness(mob/living/carbon/human/fatty, trigger_weight, fatness)
 	. = ..()
-	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
-	if (should_be_active)
-		var/obj/item/bluespace_belt/primitive/PBS_belt = fatty.belt
-		if(istype(PBS_belt) && fatness > trigger_weight)
-			fatty.visible_message(span_warning("[PBS_belt] fails as it's unable to contain [fatty]'s bulk!"),
-			span_warning("[PBS_belt] fails as it's unable to contain your bulk!"))
-			fatty.dropItemToGround(PBS_belt)
+	if (!should_be_active)
+		return should_be_active
 
-		var/obj/item/storage/belt/belt = fatty.belt
-		if(istype(belt))
-			fatty.visible_message(
-				span_warning("With a loud ripping sound, [fatty]'s [belt] snaps open!"),
-				span_warning("With a loud ripping sound, your [belt] snaps open!"))
-			fatty.dropItemToGround(belt)
+	var/obj/item/bluespace_belt/primitive/PBS_belt = fatty.belt
+	if(istype(PBS_belt) && fatness > trigger_weight)
+		fatty.visible_message(span_warning("[PBS_belt] fails as it's unable to contain [fatty]'s bulk!"),
+		span_warning("[PBS_belt] fails as it's unable to contain your bulk!"))
+		fatty.dropItemToGround(PBS_belt)
+
+	var/obj/item/storage/belt/belt = fatty.belt
+	if(istype(belt))
+		fatty.visible_message(
+			span_warning("With a loud ripping sound, [fatty]'s [belt] snaps open!"),
+			span_warning("With a loud ripping sound, your [belt] snaps open!"))
+		fatty.dropItemToGround(belt)
 	
 	return should_be_active
 
@@ -203,14 +203,15 @@
 
 /datum/helplessness/back_clothing/apply_helplessness(mob/living/carbon/human/fatty, trigger_weight, fatness)
 	. = ..()
-	// the super function to this returns true if the helplessness mechanic is active, and false otherwise
 	var/should_be_active = .
 
-	if (should_be_active)
-		var/obj/item/back_item = fatty.back
-		if(istype(back_item) && !istype(back_item, /obj/item/mod))
-			to_chat(fatty, span_warning("Your weight makes it impossible for you to carry [back_item]."))
-			fatty.dropItemToGround(back_item)
+	if (!should_be_active)
+		return should_be_active
+
+	var/obj/item/back_item = fatty.back
+	if(istype(back_item) && !istype(back_item, /obj/item/mod))
+		to_chat(fatty, span_warning("Your weight makes it impossible for you to carry [back_item]."))
+		fatty.dropItemToGround(back_item)
 	
 	return should_be_active
 

@@ -2,6 +2,7 @@
  * A datum responsible for handling helplessness mechanics.
  * Check out [modular_gs/code/datums/helplessness/helplessness.dm] for examples on how to extend this
  * and it's procs.
+ * 
  * Created and maintained by Swan on Gain Station 13 discord server, if you have any questions 
  * or are interested in expanding it's functionality feel free to reach out to me.
  * Or just tell me what a good little coder boy I am that'll make me happy too.
@@ -20,17 +21,19 @@
 	/// message we send on player losing this helplessness
 	var/lose_message = ""
 
-/**
- * oh yeah I'm such a good little coder boy mmmmh~
- * mommy is gonna be so proud of her good little coder boy for writing such good code
- * ahhhh~! It's all documented too~
+/*
+oh yeah I'm such a good little coder boy mmmmh~ ❤
+mommy is gonna be so proud of her good little coder boy for writing such good code
+ahhhh~! It's all documented too~ 🥵
 */
 
 /**
  * Starting proc, used as a starting point to get everything running. Calls other procs that 
- * are supposed to handle helplessness logic. Override those, not this one
- * returns FALSE if we haven't applied the helplessness traits
- * returns TRUE if we did
+ * are supposed to handle helplessness logic. Override those, not this one.
+ * 
+ * Returns FALSE if we haven't applied the helplessness traits.
+ * 
+ * Returns TRUE if we did.
  */
 /datum/helplessness/proc/handle_helplessness(mob/living/carbon/human/fatty)
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -46,11 +49,13 @@
 
 /**
  * Performs sanity checks - if we have a client, do they have prefs etc. Basically checking
- * for things that'd make running the rest of the code pointless
- * other procs here rely on running this before them so make sure you don't fucking break it or daddy
- * will be really mad
- * returns FALSE if we shouldn't run further
- * returns TRUE if we should
+ * for things that'd make running the rest of the code pointless.
+ * Other procs here rely on running this before them so make sure you don't fucking break it or daddy
+ * will be really mad.
+ * 
+ * Returns FALSE if we shouldn't run further.
+ * 
+ * Returns TRUE if we should.
  */
 /datum/helplessness/proc/sanity_checks(mob/living/carbon/human/fatty)
 	PROTECTED_PROC(TRUE)
@@ -67,9 +72,11 @@
 	return TRUE
 
 /**
- * returns the weight at which the helplessness mechanic triggers.
- * separate proc primarily for the weak/strong legs traits
- * returns the BFI value at which the helplessness mechanic will trigger
+ * Returns the weight at which the helplessness mechanic triggers.
+ * 
+ * Separate proc primarily for the weak/strong legs traits.
+ * 
+ * Returns the BFI value at which the helplessness mechanic will trigger.
  */
 /datum/helplessness/proc/get_trigger_weight(mob/living/carbon/human/fatty)
 	PROTECTED_PROC(TRUE)
@@ -83,15 +90,16 @@
 	// if the player has a related helplessness quirk, override the trigger weight with the default
 	if (HAS_TRAIT(fatty, override_quirk))
 		trigger_weight = default_trigger_weight
-	
+
 	return trigger_weight
 
 /**
- * compares trigger weight and (effective) fatness, and applies/removes helplessness traits accordingly
- * override this for custom behaviour, adding/deleting multiple trait under one helplessness pref etc
+ * Compares trigger weight and (effective) fatness, and applies/removes helplessness traits accordingly.
+ * Override this for custom behaviour, adding/deleting multiple trait under one helplessness pref etc.
  * 
- * returns FALSE when the trait is not applied/active
- * returns TRUE when the trais is applied/active
+ * Returns FALSE when the trait is not applied/active.
+ * 
+ * Returns TRUE when the trais is applied/active.
  */
 /datum/helplessness/proc/apply_helplessness(mob/living/carbon/human/fatty, trigger_weight, fatness)
 	PROTECTED_PROC(TRUE)
