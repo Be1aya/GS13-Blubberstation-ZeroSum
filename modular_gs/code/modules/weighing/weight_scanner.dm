@@ -1,6 +1,6 @@
 /obj/item/portable_weight_scanner
 	name = "weight analyzer"
-	icon = 'modular_gs/icons/obj/items/devices.dmi' //Sprites made by @greenwoman
+	icon = 'modular_gs/icons/obj/items/devices.dmi' //Sprites made by @greeenwoman
 	icon_state = "weight-analyzer"
 	inhand_icon_state = "healthanalyzer"
 	worn_icon_state = "healthanalyzer"
