@@ -17030,6 +17030,7 @@
 	name = "Cargo Desk";
 	req_access = list("cargo")
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "bkO" = (
@@ -37080,6 +37081,7 @@
 	pixel_x = -6
 	},
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/hallway/primary/starboard)
 "cJQ" = (
@@ -67103,6 +67105,7 @@
 	},
 /obj/machinery/autolathe,
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/hallway/primary/starboard)
 "qnS" = (

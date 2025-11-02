@@ -46901,6 +46901,7 @@
 	},
 /obj/machinery/autolathe,
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/science/lab)
 "iUz" = (
@@ -66515,6 +66516,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/science/lab)
 "mFh" = (
@@ -112827,6 +112829,7 @@
 	req_access = list("cargo")
 	},
 /obj/structure/window/reinforced/spawner/directional/west,
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "vqU" = (
@@ -228238,7 +228241,7 @@ gLc
 bYD
 gLc
 rhu
-gLc
+jDG
 gLc
 gLc
 gLc
@@ -228752,7 +228755,7 @@ gLc
 bYD
 gLc
 rhu
-gLc
+ddw
 gLc
 gLc
 gLc

@@ -59881,6 +59881,11 @@
 	},
 /obj/machinery/autolathe,
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/window/right/directional/south{
+	name = "Research and Development Desk";
+	req_access = list("science")
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/hallway/primary/starboard)
 "qqv" = (
@@ -65989,10 +65994,6 @@
 	id = "pharmacy_shutters";
 	name = "Pharmacy Shutters"
 	},
-/obj/machinery/door/window/right/directional/west{
-	req_access = list("pharmacy");
-	name = "Pharmacy Desk"
-	},
 /turf/open/floor/iron,
 /area/station/medical/pharmacy)
 "sbd" = (
@@ -69027,6 +69028,7 @@
 	name = "Ore Redemtion Window";
 	req_access = list("mineral_storeroom")
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/cargo/office)
 "sQI" = (
@@ -72670,6 +72672,11 @@
 	pixel_x = -6
 	},
 /obj/structure/window/spawner/directional/south,
+/obj/machinery/door/window/right/directional/south{
+	name = "Research and Development Desk";
+	req_access = list("science")
+	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plating,
 /area/station/hallway/primary/starboard)
 "tRX" = (
