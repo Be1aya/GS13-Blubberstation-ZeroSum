@@ -55,6 +55,7 @@
 	if(!istype(target_mob))
 		return FALSE
 
+	most_recent_carbon = target_mob
 	total_weight_pounds = target_mob.calculate_weight_in_pounds()
 	total_weight = (target_mob.fatness + target_mob.muscle)
 
