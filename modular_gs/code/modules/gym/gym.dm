@@ -83,7 +83,7 @@
 				"\The [src] audibly strains under [fatty]'s weight...",
 				"\The [src] creeaaaaks under [fatty]'s strain..."
 			)))
-	var/base_intensity = 0.1
+	var/base_intensity = 0.125
 	var/custom_stamina_cost = (base_intensity * INTENSITY_TO_STAMINA_RATIO) * stamina_cost_divider
 
 	fatty.work_out(base_intensity, custom_stamina_cost)
