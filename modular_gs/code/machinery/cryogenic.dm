@@ -3,6 +3,9 @@
 	desc = "A special mobility sleeper for storing agents in a disclosed location."
 	icon = 'modular_gs/icons/obj/Cryogenic2.dmi'
 	icon_state = "telepod-open"
+	base_icon_state = "telepod-open"
+	open_icon_state = "telepod-open"
+	time_till_despawn = 10 SECONDS
 	on_store_message = "has teleported back to Central Command."
 	on_store_name = "Teleporter Oversight"
 
@@ -13,6 +16,13 @@
 /obj/machinery/cryopod/tele/close_machine(atom/movable/target, density_to_set = TRUE)
 	..()
 	icon_state = "telepod"
+
+/obj/machinery/cryopod/tele/mouse_drop_receive(mob/living/target, mob/living/user, params)
+	if (iscarbon(target))
+		var/mob/living/carbon/person = target
+		person.save_persistent_fat()
+	
+	return ..()
 
 /obj/machinery/cryopod
 	/// Do we want to inform comms when someone cryos?
