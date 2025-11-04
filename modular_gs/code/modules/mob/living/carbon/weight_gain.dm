@@ -4,8 +4,7 @@
 	fatty.handle_helplessness()
 	fatty.handle_modular_items()
 
-	/* Do this later.
-	switch(fatty.fullness)
+	switch(fatty.get_fullness())
 		if(0 to FULLNESS_LEVEL_BLOATED)
 			fatty.clear_alert("fullness")
 		if(FULLNESS_LEVEL_BLOATED to FULLNESS_LEVEL_BEEG)
@@ -15,7 +14,7 @@
 		if(FULLNESS_LEVEL_NOMOREPLZ to INFINITY)
 			fatty.throw_alert("fullness", /atom/movable/screen/alert/gs13/beegbelly)
 
-
+	/*
 	var/obj/item/organ/genital/external/belly/B = fatty.getorganslot("belly")
 	if(!isnull(B) && istype(B))
 		B.update()

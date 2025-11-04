@@ -25,7 +25,7 @@
 	/// What is the maximum amount of weight we can put on?
 	var/max_weight
 
-	var/fullness = FULLNESS_LEVEL_HALF_FULL
+	var/fullness = 20
 	var/fullness_reduction_timer = 0 // When was the last time they emoted to reduce their fullness
 
 	/// How many humanoid mobs have been digested by this mob?

@@ -2,7 +2,7 @@
 	var/t_He = p_They()
 	var/t_His = p_Their()
 
-	switch(fullness)
+	switch(get_fullness())
 		if(FULLNESS_LEVEL_BLOATED to FULLNESS_LEVEL_BEEG)
 			return "[t_He] look[p_s()] like [t_He] ate a bit too much.\n"
 		if(FULLNESS_LEVEL_BEEG to FULLNESS_LEVEL_NOMOREPLZ)
