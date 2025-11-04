@@ -52,4 +52,34 @@
 		if(0 to FATNESS_LEVEL_FAT)
 			fatty.clear_alert("fatness")
 
+	switch(fatty.muscle)
+		if(FATNESS_LEVEL_BLOB to INFINITY)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/mountainous)
+
+		if(FATNESS_LEVEL_IMMOBILE to FATNESS_LEVEL_BLOB)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/titanic)
+
+		if(FATNESS_LEVEL_BARELYMOBILE to FATNESS_LEVEL_IMMOBILE)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/hulking)
+
+		if(FATNESS_LEVEL_EXTREMELY_OBESE to FATNESS_LEVEL_BARELYMOBILE)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/herculean)
+
+		if(FATNESS_LEVEL_MORBIDLY_OBESE to FATNESS_LEVEL_EXTREMELY_OBESE)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/beefy)
+
+		if(FATNESS_LEVEL_OBESE to FATNESS_LEVEL_MORBIDLY_OBESE)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/muscular)
+
+		if(FATNESS_LEVEL_VERYFAT to FATNESS_LEVEL_OBESE)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/athletic)
+
+		if(FATNESS_LEVEL_FATTER to FATNESS_LEVEL_VERYFAT)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/sporty)
+
+		if(FATNESS_LEVEL_FAT to FATNESS_LEVEL_FATTER)
+			fatty.throw_alert("muscle", /atom/movable/screen/alert/gs13/toned)
+
+		if(0 to FATNESS_LEVEL_FAT)
+			fatty.clear_alert("muscle")
 
