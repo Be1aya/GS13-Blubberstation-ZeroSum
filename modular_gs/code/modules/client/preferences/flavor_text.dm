@@ -1,5 +1,5 @@
 /datum/preference/text/ws_text
-	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	category = GS13_EXAMINE_PREFERENCES
 	savefile_identifier = PREFERENCE_CHARACTER
 	savefile_key = "ws_rounded"
 	maximum_value_length = 300 // I feel like this is reasonable?
