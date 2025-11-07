@@ -13,6 +13,10 @@
 	item_path = /obj/item/toy/plush/gs13/rose
 	// ckeywhitelist = list("eremitanovem", "sonoida", "absolutelyfree") - made freely available at the owner's request
 
+/datum/loadout_item/toys/lgo_plush
+	name = "Trashbot plush"
+	item_path = /obj/item/toy/plush/gs13/lgo
+
 /datum/loadout_item/toys/chloe_plush
 	name = "Green-Eyed Botanist Plush"
 	item_path = /obj/item/toy/plush/gs13/chloe
