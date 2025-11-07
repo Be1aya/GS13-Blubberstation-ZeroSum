@@ -33,3 +33,11 @@
 /datum/loadout_item/toys/flint_plush
 	name = "Flimbus Plush"
 	item_path = /obj/item/toy/plush/gs13/flint
+
+/datum/loadout_item/toys/protogen_plush
+	name = "Protogen Plush"
+	item_path = /obj/item/toy/plush/gs13/protogen
+
+/datum/loadout_item/toys/yeen_plush
+	name = "Yeen Plush"
+	item_path = /obj/item/toy/plush/gs13/yeen

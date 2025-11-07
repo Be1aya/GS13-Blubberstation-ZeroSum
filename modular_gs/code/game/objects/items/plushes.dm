@@ -90,3 +90,12 @@
 	desc = "Fill him with oil and throw him at a wall!"
 	icon_state = "flint"
 
+/obj/item/toy/plush/gs13/protogen
+	name = "Protogen plushie"
+	desc = "A round protogen plushie. Despite her shape, she looks like she likes to exercise."
+	icon_state = "proot"
+
+/obj/item/toy/plush/gs13/yeen
+	name = "Yeen plushie"
+	desc = "YEAHH BUDDY!"
+	icon_state = "yeen"

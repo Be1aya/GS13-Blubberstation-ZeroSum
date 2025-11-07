@@ -94,14 +94,14 @@
 	for(var/obj/item/stock_parts/servo/servo in component_parts)
 		stamina_cost_divider += servo.rating * 1
 
-/obj/machinery/treadmill/attackby(obj/item/O, mob/living/user, params)
-	if(default_deconstruction_screwdriver(user, "conveyor0", "conveyor0", O))
+/obj/machinery/treadmill/attackby(obj/item/item, mob/living/user, params)
+	if(default_deconstruction_screwdriver(user, "treadmill", "treadmill", item))
 		return TRUE
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(item))
 		return TRUE
 
-	if(default_change_direction_wrench(O))
+	if(default_change_direction_wrench(user, item))
 		return TRUE
 
 	return ..()
