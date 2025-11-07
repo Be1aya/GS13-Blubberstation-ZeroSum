@@ -90,3 +90,18 @@
 	desc = "Fill him with oil and throw him at a wall!"
 	icon_state = "flint"
 
+/obj/item/toy/plush/gs13/protogen
+	name = "Protogen plushie"
+	desc = "A round protogen plushie. Despite her shape, she looks like she likes to exercise."
+	icon_state = "proot"
+
+/obj/item/toy/plush/gs13/yeen
+	name = "Grumpy hyena plushie"
+	desc = "This hyena's one eye looks full of harmful intent."
+	icon_state = "yeen"
+
+/obj/item/toy/plush/gs13/noms
+	name = "Strange blue creature plushie"
+	desc = "A large, very unwieldly plush toy of cargo's biggest workplace hazard. a small tag says \"squeeze me!\" on the seam of one of the legs."
+	icon = 'modular_gs/icons/obj/plushes_big.dmi'
+	icon_state = "noms"
