@@ -11611,17 +11611,11 @@
 /turf/closed/wall,
 /area/station/commons/storage/tools)
 "dZy" = (
-/obj/effect/turf_decal/trimline/blue/filled/line{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/storage/box/bodybags,
-/turf/open/floor/iron/dark,
-/area/station/medical/medbay/central)
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/carpet/gato,
+/area/station/commons/locker)
 "dZB" = (
 /obj/machinery/door/poddoor{
 	id = "QMLoaddoor";
@@ -17713,12 +17707,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/structure/table/glass,
-/obj/item/storage/box/gloves{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/storage/box/masks,
+/obj/structure/closet/secure_closet/medical3,
 /turf/open/floor/iron/dark,
 /area/station/medical/medbay/central)
 "gem" = (
@@ -24639,6 +24628,7 @@
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /obj/machinery/status_display/evac/directional/east,
+/obj/item/storage/box/masks,
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
 "iwt" = (
@@ -28764,7 +28754,7 @@
 /turf/open/floor/iron/diagonal,
 /area/station/cargo/storage)
 "jMo" = (
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "jMx" = (
 /obj/structure/closet/crate,
@@ -35288,7 +35278,7 @@
 	pixel_x = 0;
 	pixel_y = 0
 	},
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "mdo" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
@@ -35942,6 +35932,10 @@
 /obj/machinery/camera/directional/east{
 	c_tag = "Medbay Primary Treatment Centre East";
 	network = list("ss13","medbay")
+	},
+/obj/item/storage/box/beakers{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
@@ -36860,7 +36854,7 @@
 /obj/structure/chair/sofa/corp{
 	dir = 4
 	},
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "mEo" = (
 /obj/effect/turf_decal/stripes/line,
@@ -40085,7 +40079,7 @@
 	pixel_x = -3;
 	pixel_y = 0
 	},
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "nGq" = (
 /obj/structure/railing/corner,
@@ -41559,7 +41553,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/table,
 /obj/item/radio/entertainment/speakers/physical,
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "okj" = (
 /obj/structure/cable,
@@ -44757,6 +44751,10 @@
 "ppG" = (
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue/fourcorners,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 4
+	},
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
 "ppI" = (
@@ -45289,6 +45287,7 @@
 /obj/effect/turf_decal/tile/blue/fourcorners,
 /obj/machinery/status_display/ai/directional/east,
 /obj/item/radio/intercom/directional/south,
+/obj/item/storage/box/bodybags,
 /turf/open/floor/iron/white,
 /area/station/medical/treatment_center)
 "pyY" = (
@@ -54240,7 +54239,7 @@
 	pixel_x = 7;
 	pixel_y = -3
 	},
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "sBa" = (
 /obj/structure/bed,
@@ -64314,12 +64313,8 @@
 /turf/open/floor/iron/dark,
 /area/station/security/lockers)
 "vQY" = (
-/obj/structure/rack,
-/obj/effect/spawner/random/bureaucracy/briefcase{
-	spawn_loot_count = 2;
-	spawn_loot_split = 1
-	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/vending/dorms,
 /turf/open/floor/iron,
 /area/station/commons/locker)
 "vRg" = (
@@ -69139,6 +69134,10 @@
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/iron/dark,
 /area/station/hallway/primary/central)
+"xxp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/carpet/gato,
+/area/station/commons/locker)
 "xxF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -70928,7 +70927,7 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /obj/structure/table,
 /obj/machinery/computer/security/telescreen/entertainment,
-/turf/open/floor/iron/textured_large,
+/turf/open/floor/carpet/gato,
 /area/station/commons/locker)
 "ycQ" = (
 /obj/effect/turf_decal/stripes/line{
@@ -93730,7 +93729,7 @@ qQX
 bRH
 fEK
 fEK
-dZy
+gdL
 kTO
 gdL
 fEK
@@ -104456,9 +104455,9 @@ oyW
 dIO
 dTv
 qRk
-vME
+xxp
 jMo
-qsK
+dZy
 pJE
 uUl
 qXB
@@ -104715,7 +104714,7 @@ usP
 xAT
 jMo
 jMo
-qsK
+dZy
 lVM
 kTn
 qXB
