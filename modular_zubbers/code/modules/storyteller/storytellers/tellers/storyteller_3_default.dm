@@ -6,6 +6,7 @@
 	antag_divisor = 8
 	storyteller_type = STORYTELLER_TYPE_INTENSE //GS edit: originally STORYTELLER_TYPE_ALWAYS_AVAILABLE
 	population_min = 60 //GS EDIT
+	
 	tag_multipliers = list(
 		TAG_CHAOTIC = 0.7
 	)
