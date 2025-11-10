@@ -76,7 +76,9 @@
 /area/station/common/cryopods)
 "o" = (
 /obj/effect/turf_decal/bot_blue,
-/obj/machinery/cryopod/tele,
+/obj/machinery/cryopod/tele{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/common/cryopods)
 "q" = (
@@ -132,7 +134,9 @@
 "D" = (
 /obj/effect/turf_decal/bot_blue,
 /obj/machinery/airalarm/directional/east,
-/obj/machinery/cryopod/tele,
+/obj/machinery/cryopod/tele{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/common/cryopods)
 "E" = (
@@ -152,7 +156,9 @@
 "G" = (
 /obj/structure/window/reinforced/spawner/directional/west,
 /obj/effect/turf_decal/bot_blue,
-/obj/machinery/cryopod/tele,
+/obj/machinery/cryopod/tele{
+	dir = 1
+	},
 /turf/open/floor/iron/dark/smooth_large,
 /area/station/common/cryopods)
 "H" = (
