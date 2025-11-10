@@ -214,11 +214,11 @@
 
 /mob/living/carbon/get_fullness(only_consumable)
 	. = ..()
-	var/fullness = .	// old fullness
+	fullness = .	// old fullness
 	return max(0, fullness - fullness_reduction)
 
 /mob/living/carbon/proc/fullness_reduction()
-	var/max_fullness_reduction = (2000 * (1 + src.overeatduration / (4000 SECONDS)))	// slightly over the default
+	var/max_fullness_reduction = max(fullness * 2, 2000)
 	fullness_reduction -= 15
 	fullness_reduction = clamp(fullness_reduction, 0, max_fullness_reduction)
 
