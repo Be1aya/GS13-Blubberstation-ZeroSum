@@ -21,8 +21,8 @@
 	storyteller_type = STORYTELLER_TYPE_GS
 
 /datum/storyteller_data/tracks/relaxed
-	threshold_mundane = 900
-	threshold_moderate = 2700
-	threshold_major = 8000
+	threshold_mundane = 30
+	threshold_moderate = 60
+	threshold_major = 90
 	threshold_crewset = 999999999
 	threshold_ghostset = 999999999
