@@ -67,6 +67,7 @@
 			restricted_roles |= initial(iterating_job.title)
 
 /datum/round_event_control/antagonist/can_spawn_event(players_amt, allow_magic = FALSE, popchecks = TRUE)
+	return FALSE //GS13 edit: returns false without any evaluation until we are sure we want antags in place. This prevents nukies without editing core files.
 	. = ..()
 	if(!.)
 		return
