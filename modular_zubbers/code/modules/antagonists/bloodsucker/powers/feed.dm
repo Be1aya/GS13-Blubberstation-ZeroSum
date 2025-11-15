@@ -218,6 +218,11 @@
 	blood_taken += blood_eaten
 	targets_and_blood[target_ref] += blood_eaten
 	modify_blood_drunk(blood_eaten * 0.5)
+	// GS13 fatty vampires
+	var/mob/living/carbon/drained_carbon = feed_target
+	if(istype(drained_carbon))
+		fatness_drain(user, drained_carbon)
+	// GS13 edit end
 
 	if(feed_strength_mult > 5 && feed_target.stat < DEAD)
 		user.add_mood_event("drankblood", /datum/mood_event/drankblood)

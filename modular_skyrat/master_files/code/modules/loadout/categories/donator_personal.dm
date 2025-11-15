@@ -139,10 +139,12 @@
 	ckeywhitelist = list("ChillyLobster")
 */
 
+/*
 /datum/loadout_item/mask/wolf_mask
 	name = "Wolf mask"
 	item_path = /obj/item/clothing/mask/animal/wolf
 	//ckeywhitelist = list("theooz")
+*/
 
 
 /datum/loadout_item/head/drake_skull
