@@ -226,7 +226,6 @@
 				/obj/item/riding_saddle/leather = 5,
 				/obj/item/storage/backpack/saddlebags = 5,
 				/obj/item/umbrella = 20,
-				/obj/item/umbrella/parasol = 20,
 			)
 		)
 	)

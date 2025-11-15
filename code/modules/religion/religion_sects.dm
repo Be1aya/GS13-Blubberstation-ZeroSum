@@ -235,10 +235,11 @@
 /datum/religion_sect/pyre/on_select()
 	. = ..()
 	AddComponent(/datum/component/sect_nullrod_bonus, list(
-		/obj/item/gun/ballistic/bow/divine = list(
+		/obj/item/gun/ballistic/bow/divine/with_quiver = list(
 			/datum/religion_rites/blazing_star,
 		),
 	))
+
 
 /datum/religion_sect/pyre/on_sacrifice(obj/item/flashlight/flare/candle/offering, mob/living/user)
 	if(!istype(offering))

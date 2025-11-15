@@ -171,16 +171,6 @@
 
 	remove_all(update_storage = FALSE)
 
-/// Ran on items instantiated inside the storage, basically a chopped down version of handle_enter
-/datum/storage/proc/item_init(datum/source, obj/item/inited)
-	SIGNAL_HANDLER
-
-	if(!istype(inited))
-		return
-
-	inited.item_flags |= IN_STORAGE
-	RegisterSignal(inited, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
-
 /// Automatically ran on all object insertions: flag marking and view refreshing.
 /datum/storage/proc/handle_enter(datum/source, obj/item/arrived)
 	SIGNAL_HANDLER
@@ -233,7 +223,6 @@
 	RegisterSignal(parent, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp_act))
 	RegisterSignal(parent, COMSIG_ATOM_CONTENTS_WEIGHT_CLASS_CHANGED, PROC_REF(contents_changed_w_class))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_click_alt))
-	RegisterSignal(parent, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(item_init))
 
 /**
  * Sets where items are physically being stored in the case it shouldn't be on the parent.
@@ -487,8 +476,6 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 
 	if(!can_insert(to_insert, user, messages = messages, force = force))
 		return FALSE
-	if(SEND_SIGNAL(parent, COMSIG_ATOM_PRE_STORED_ITEM, to_insert, user, force, messages) & BLOCK_STORAGE_INSERT)
-		return FALSE
 
 	SEND_SIGNAL(parent, COMSIG_ATOM_STORED_ITEM, to_insert, user, force)
 	SEND_SIGNAL(src, COMSIG_STORAGE_STORED_ITEM, to_insert, user, force)
@@ -663,7 +650,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
  */
 /datum/storage/proc/remove_type(type, atom/destination, amount = INFINITY, check_adjacent = FALSE, force = FALSE, mob/user, list/inserted)
 	if(!force && check_adjacent)
-		if(isnull(user) || !destination.IsReachableBy(user) || !parent.IsReachableBy(user))
+		if(isnull(user) || !user.CanReach(destination) || !user.CanReach(parent))
 			return FALSE
 
 	var/list/taking = typecache_filter_list(real_location.contents, typecacheof(type))
@@ -788,50 +775,40 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	if(ismecha(user.loc) || user.incapacitated || !user.canUseStorage())
-		return NONE
+		return
 
 	if(istype(over_object, /atom/movable/screen/inventory/hand))
-		if(parent.loc != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
-			return NONE
-
-		if(isitem(parent))
-			var/obj/item/item_parent = parent
-			if(!item_parent.can_mob_unequip(user))
-				return COMPONENT_CANCEL_MOUSEDROP_ONTO
+		if(real_location.loc != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+			return
 
 		var/atom/movable/screen/inventory/hand/hand = over_object
 		user.putItemFromInventoryInHandIfPossible(parent, hand.held_index)
 		parent.add_fingerprint(user)
 		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	if(over_object == user)
-		if(!user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
-			return NONE
-
-		if(isliving(parent) && user.pulling == parent)
-			var/mob/living/as_living = parent
-			if(as_living.can_be_held)
-				return
+	if(ismob(over_object))
+		if(over_object != user || !user.can_perform_action(parent, FORBID_TELEKINESIS_REACH | ALLOW_RESTING))
+			return
 
 		parent.add_fingerprint(user)
 		INVOKE_ASYNC(src, PROC_REF(open_storage), user)
 		return COMPONENT_CANCEL_MOUSEDROP_ONTO
 
-	if(istype(over_object, /atom/movable/screen) || ismob(over_object))
-		return NONE
+	if(istype(over_object, /atom/movable/screen))
+		return
 
 	if(!user.can_perform_action(over_object, FORBID_TELEKINESIS_REACH))
-		return NONE
+		return
 
 	parent.add_fingerprint(user)
 
 	var/atom/dump_loc = over_object.get_dumping_location()
 	if(isnull(dump_loc))
-		return NONE
+		return
 
 	/// Don't dump *onto* objects in the same storage as ourselves
 	if (over_object.loc == parent.loc && !isnull(parent.loc.atom_storage) && isnull(over_object.atom_storage))
-		return NONE
+		return
 
 	INVOKE_ASYNC(src, PROC_REF(dump_content_at), over_object, dump_loc, user)
 	return COMPONENT_CANCEL_MOUSEDROP_ONTO
@@ -846,7 +823,7 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	if(locked)
 		user.balloon_alert(user, "closed!")
 		return
-	if(!parent.IsReachableBy(user) || !dest_object.IsReachableBy(user))
+	if(!user.CanReach(parent) || !user.CanReach(dest_object))
 		return
 
 	if(SEND_SIGNAL(dest_object, COMSIG_STORAGE_DUMP_CONTENT, src, user) & STORAGE_DUMP_HANDLED)
@@ -1012,12 +989,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 	SIGNAL_HANDLER
 
 	for(var/mob/user in can_see_contents())
-		if (!can_be_reached_by(user))
+		if (!user.CanReach(parent))
 			hide_contents(user)
-
-/// Relay for parent.IsReachableBy
-/datum/storage/proc/can_be_reached_by(mob/user)
-	return parent.IsReachableBy(user)
 
 /// Close the storage UI for everyone viewing us.
 /datum/storage/proc/close_all()
@@ -1192,10 +1165,8 @@ GLOBAL_LIST_EMPTY(cached_storage_typecaches)
 /datum/storage/proc/contents_changed_w_class(datum/source, obj/item/changed, old_w_class, new_w_class)
 	SIGNAL_HANDLER
 
-	// If old weight already overloaded the storage, don't drop the item out just in case we're inside of a premade box
-	if(new_w_class <= max_specific_storage && (get_total_weight() <= max_total_storage || get_total_weight() - new_w_class + old_w_class > max_total_storage))
+	if(new_w_class <= max_specific_storage && new_w_class + get_total_weight() <= max_total_storage)
 		return
-
 	if(!attempt_remove(changed, parent.drop_location()))
 		return
 

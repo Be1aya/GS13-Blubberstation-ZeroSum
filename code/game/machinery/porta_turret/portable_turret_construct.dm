@@ -15,7 +15,6 @@
 	desc = "An unfinished covered turret frame."
 	anchored = FALSE
 	density = TRUE
-	obj_flags = UNIQUE_RENAME | RENAME_NO_DESC
 	use_power = NO_POWER_USE
 	var/build_step = PTURRET_UNSECURED //the current step in the building process
 	var/finish_name = "turret" //the name applied to the product turret
@@ -193,12 +192,6 @@
 		return
 	return ..()
 
-/obj/machinery/porta_turret_construct/nameformat(input, user)
-	finish_name = input
-	return input
-
-/obj/machinery/porta_turret_construct/rename_reset()
-	finish_name = initial(finish_name)
 
 /obj/machinery/porta_turret_construct/attack_hand(mob/user, list/modifiers)
 	. = ..()

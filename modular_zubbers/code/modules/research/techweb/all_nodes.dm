@@ -107,13 +107,7 @@
 	. = ..()
 	design_ids += list(
 		"pinpointer_vent_cyborg",
-		"adv_xenoarchbag_cyborg",
-		"pka_railgun_cyborg",
-		"pka_repeater_cyborg",
-		"pka_shotgun_cyborg",
-		"pka_pistol_cyborg",
-		"pka_shockwave_cyborg",
-		"pka_m79_cyborg",
+		"adv_xenoarchbag_cyborg"
 	)
 /datum/techweb_node/mechlaunchpad
 	id = TECHWEB_NODE_MECHLAUNCHPAD

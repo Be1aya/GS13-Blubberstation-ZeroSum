@@ -90,11 +90,13 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 /obj/machinery/airalarm/get_save_vars()
 	return ..() - NAMEOF(src, name)
 
-/obj/machinery/airalarm/Initialize(mapload)
+/obj/machinery/airalarm/Initialize(mapload, ndir, nbuild)
 	. = ..()
 	set_wires(new /datum/wires/airalarm(src))
+	if(ndir)
+		setDir(ndir)
 
-	if(!mapload)
+	if(nbuild)
 		buildstage = AIR_ALARM_BUILD_NO_CIRCUIT
 		set_panel_open(TRUE)
 
@@ -133,8 +135,7 @@ GLOBAL_LIST_EMPTY_TYPED(air_alarms, /obj/machinery/airalarm)
 	))
 
 	GLOB.air_alarms += src
-	if(mapload)
-		find_and_hang_on_wall()
+	find_and_hang_on_wall()
 	register_context()
 	check_enviroment()
 

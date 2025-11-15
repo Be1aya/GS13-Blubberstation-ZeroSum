@@ -21,9 +21,8 @@
 	icon_state = "sofachair"
 	color = "#ffffff"
 	item_chair = ""
-	var/mutable_appearance/armrest
 
-/obj/structure/chair/sofachair/proc/GetArmrest()
+/obj/structure/chair/sofachair/GetArmrest()
 	return mutable_appearance('modular_gs/icons/obj/chairs.dmi', "sofachair_armrest")
 
 /obj/structure/chair/sofachair/Destroy()
@@ -34,7 +33,7 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofachair/proc/update_armrest()
+/obj/structure/chair/sofachair/update_armrest()
 	if(has_buckled_mobs())
 		add_overlay(armrest)
 	else

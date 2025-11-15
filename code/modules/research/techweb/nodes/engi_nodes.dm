@@ -218,6 +218,7 @@
 		"holobarrier_jani",
 		"holobarrier_med",
 		"holopad",
+		"vendatray",
 		"holodisk",
 		"modular_shield_gate",
 		"modular_shield_generator",

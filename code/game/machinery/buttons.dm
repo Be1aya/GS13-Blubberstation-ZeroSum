@@ -44,11 +44,15 @@
  * INITIALIZATION
  */
 
-/obj/machinery/button/Initialize(mapload)
+/obj/machinery/button/Initialize(mapload, ndir = 0, built = 0)
 	. = ..()
-	if(!mapload)
+	if(built)
+		setDir(ndir)
 		set_panel_open(TRUE)
 		update_appearance()
+
+	if(!built && !device && device_type)
+		device = new device_type(src)
 
 	check_access(null)
 
@@ -60,9 +64,8 @@
 			board.one_access = 1
 			board.accesses = req_one_access
 
-	setup_device(mapload)
-	if(mapload)
-		find_and_hang_on_wall()
+	setup_device()
+	find_and_hang_on_wall()
 	register_context()
 
 /obj/machinery/button/Destroy()
@@ -70,9 +73,7 @@
 	QDEL_NULL(board)
 	return ..()
 
-/obj/machinery/button/proc/setup_device(mapload)
-	if(mapload && !device && device_type)
-		device = new device_type(src)
+/obj/machinery/button/proc/setup_device()
 	if(id && istype(device, /obj/item/assembly/control))
 		var/obj/item/assembly/control/control_device = device
 		control_device.id = id
@@ -400,17 +401,17 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 /obj/machinery/button/door/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/machinery/button/door/setup_device(mapload)
-	if(mapload)
-		device = normaldoorcontrol ? new /obj/item/assembly/control/airlock(src) : new /obj/item/assembly/control(src)
-
-	if(istype(device, /obj/item/assembly/control/airlock))
-		var/obj/item/assembly/control/airlock/airlock_device = device
-		airlock_device.specialfunctions = specialfunctions
-	else if(istype(device, /obj/item/assembly/control))
-		var/obj/item/assembly/control/control_device = device
-		control_device.sync_doors = sync_doors
-	return ..()
+/obj/machinery/button/door/setup_device()
+	if(!device)
+		if(normaldoorcontrol)
+			var/obj/item/assembly/control/airlock/airlock_device = new(src)
+			airlock_device.specialfunctions = specialfunctions
+			device = airlock_device
+		else
+			var/obj/item/assembly/control/control_device = new(src)
+			control_device.sync_doors = sync_doors
+			device = control_device
+	..()
 
 /obj/machinery/button/door/incinerator_vent_ordmix
 	name = "combustion chamber vent control"
@@ -498,11 +499,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/button/door, 24)
 	device_type = /obj/item/assembly/control/curtain
 	var/sync_doors = TRUE
 
-/obj/machinery/button/curtain/setup_device(mapload)
-	. = ..()
+/obj/machinery/button/curtain/setup_device()
 	var/obj/item/assembly/control/curtain = device
-	if(istype(curtain))
-		curtain.sync_doors = sync_doors
+	curtain.sync_doors = sync_doors
+	return ..()
 
 /obj/machinery/button/crematorium
 	name = "crematorium igniter"

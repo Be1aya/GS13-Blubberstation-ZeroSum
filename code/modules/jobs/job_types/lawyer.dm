@@ -29,6 +29,7 @@
 
 	job_tone = "objection"
 
+
 /datum/outfit/job/lawyer
 	name = "Lawyer"
 	jobtype = /datum/job/lawyer

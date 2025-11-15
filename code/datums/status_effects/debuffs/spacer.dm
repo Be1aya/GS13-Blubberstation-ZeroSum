@@ -85,8 +85,7 @@
 /atom/movable/screen/alert/status_effect/gravity_sickness
 	name = "Gravity Sickness"
 	desc = "The gravity of the planet around you is making you feel sick and tired."
-	use_user_hud_icon = TRUE
-	overlay_state = "paralysis"
+	icon_state = "paralysis"
 
 /datum/mood_event/spacer
 

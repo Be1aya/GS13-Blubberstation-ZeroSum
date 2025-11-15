@@ -29,12 +29,11 @@
 	var/fire_sound_volume = 50
 	var/dry_fire_sound = 'sound/items/weapons/gun/general/dry_fire.ogg'
 	var/dry_fire_sound_volume = 30
-	/// Whether or not a message is displayed when fired
-	var/suppressed = SUPPRESSED_NONE
+	var/suppressed = null //whether or not a message is displayed when fired
 	var/can_suppress = FALSE
 	var/suppressed_sound = 'sound/items/weapons/gun/general/heavy_shot_suppressed.ogg'
 	var/suppressed_volume = 60
-	/// Whether a gun can be unsuppressed. for ballistics, also determines if it generates a suppressor overlay
+	/// whether a gun can be unsuppressed. for ballistics, also determines if it generates a suppressor overlay
 	var/can_unsuppress = TRUE
 	var/recoil = 0 //boom boom shake the room
 	var/clumsy_check = TRUE
@@ -57,10 +56,6 @@
 	/// If TRUE, and we aim at ourselves, it will initiate a do after to fire at ourselves.
 	/// If FALSE it will just try to fire at ourselves straight up.
 	var/doafter_self_shoot = TRUE
-
-	/// If TRUE, will fire ITEM_INTERACT_BLOCKING (melee, etc) if the gun has a round already in the chamber, and is waiting to be fired (but cant, usually due to waiting on fire_delay).
-	/// If FALSE, nothing changed.
-	var/chambered_attack_block = FALSE
 
 	/// Just 'slightly' snowflakey way to modify projectile damage for projectiles fired from this gun.
 	var/projectile_damage_multiplier = 1
@@ -94,7 +89,7 @@
 	. = ..()
 	if(ispath(pin))
 		pin = new pin
-		pin.gun_insert(new_gun = src, starting = TRUE)
+		pin.gun_insert(new_gun = src)
 
 	add_seclight_point()
 	give_gun_safeties() // SKYRAT EDIT ADDITION - GUN SAFETIES
@@ -104,7 +99,10 @@
 /obj/item/gun/Destroy()
 	if(isobj(pin)) //Can still be the initial path, then we skip
 		QDEL_NULL(pin)
-	QDEL_NULL(chambered)
+	if(chambered) //Not all guns are chambered (EMP'ed energy guns etc)
+		QDEL_NULL(chambered)
+	if(isatom(suppressed)) //SUPPRESSED IS USED AS BOTH A TRUE/FALSE AND AS A REF, WHAT THE FUCKKKKKKKKKKKKKKKKK
+		QDEL_NULL(suppressed)
 	return ..()
 
 /obj/item/gun/apply_fantasy_bonuses(bonus)
@@ -136,20 +134,20 @@
 	if(gone == chambered)
 		chambered = null
 		update_appearance()
+	if(gone == suppressed)
+		clear_suppressor()
 
-/// Clears var and updates icon.
+///Clears var and updates icon. In the case of ballistic weapons, also updates the gun's weight.
 /obj/item/gun/proc/clear_suppressor()
 	if(!can_unsuppress)
 		return
-	suppressed = SUPPRESSED_NONE
+	suppressed = null
 	update_appearance()
 
 /obj/item/gun/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(hit_atom))
 		var/mob/living/thrower = throwingdatum?.get_thrower()
-		if(!isliving(thrower))
-			return
 		toss_gun_hard(thrower, hit_atom)
 
 /obj/item/gun/proc/toss_gun_hard(mob/living/thrower, mob/living/target) //throw a gun at them. They don't expect it.
@@ -309,8 +307,6 @@
 /obj/item/gun/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(try_fire_gun(interacting_with, user, list2params(modifiers)))
 		return ITEM_INTERACT_SUCCESS
-	if(chambered_attack_block == TRUE && can_shoot() && isliving(interacting_with))
-		return ITEM_INTERACT_BLOCKING // block melee (etc), usually if waiting on fire delay
 	return NONE
 
 /obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
@@ -460,7 +456,7 @@
 		else //Smart spread
 			sprd = round((((burst_spread_mult/burst_size) * iteration) - (0.5 + (burst_spread_mult * 0.25))) * (random_spread))
 		before_firing(target,user)
-		if(!chambered.fire_casing(target, user, params, 0, suppressed, zone_override, sprd, src))
+		if(!chambered.fire_casing(target, user, params, ,suppressed, zone_override, sprd, src))
 			shoot_with_empty_chamber(user)
 			firing_burst = FALSE
 			return FALSE
@@ -521,7 +517,7 @@
 					return
 			var/sprd = round((rand(0, 1) - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * total_random_spread)
 			before_firing(target,user)
-			if(!chambered.fire_casing(target, user, params, 0, suppressed, zone_override, sprd, src))
+			if(!chambered.fire_casing(target, user, params, , suppressed, zone_override, sprd, src))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -646,7 +642,7 @@
 	if(pin)
 		qdel(pin)
 	var/obj/item/firing_pin/new_pin = new
-	new_pin.gun_insert(new_gun = src, starting = TRUE)
+	new_pin.gun_insert(new_gun = src)
 
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target,mob/user)

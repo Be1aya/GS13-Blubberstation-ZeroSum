@@ -60,7 +60,7 @@
 	if (QDELETED(target))
 		return FALSE
 	var/mob/living/pawn = controller.pawn
-	if (!target.IsReachableBy(pawn))
+	if (!pawn.CanReach(target))
 		return FALSE
 	return pawn.loc == target || pawn.buckled == target
 

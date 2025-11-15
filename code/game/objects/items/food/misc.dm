@@ -390,7 +390,7 @@
 	to_chat(user, span_notice("You stick the rod into the stick of butter."))
 	user.temporarilyRemoveItemFromInventory(src)
 	var/obj/item/food/butter/on_a_stick/new_item = new(drop_location())
-	if (new_item.IsReachableBy(user))
+	if (user.CanReach(new_item))
 		user.put_in_hands(new_item)
 	qdel(src)
 	return TRUE
@@ -405,7 +405,7 @@
 	can_stick = FALSE
 
 /obj/item/food/butter/make_processable()
-	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice", sound_to_play = SFX_KNIFE_SLICE)
+	AddElement(/datum/element/processable, TOOL_KNIFE, /obj/item/food/butterslice, 3, 3 SECONDS, table_required = TRUE, screentip_verb = "Slice")
 
 /obj/item/food/butterslice
 	name = "butter slice"

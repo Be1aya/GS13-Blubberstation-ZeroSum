@@ -17,7 +17,6 @@
 				/obj/item/toy/cards/deck/kotahi = 3,
 				/obj/item/toy/cards/deck/tarot = 3,
 				/obj/item/toy/cards/deck/wizoff = 3,
-				/obj/item/toy/cards/deck/cardshoe = 3,
 			),
 		),
 		list(

@@ -605,8 +605,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	. = ..()
 	. += GLOB.durathread_recipes
 
-/obj/item/stack/sheet/durathread/used_in_craft(atom/created, datum/crafting_recipe/recipe)
-	. = ..()
+/obj/item/stack/sheet/durathread/on_item_crafted(mob/builder, atom/created)
 	created.set_armor_rating(CONSUME, max(50, created.get_armor_rating(CONSUME)))
 
 /obj/item/stack/sheet/cotton

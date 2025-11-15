@@ -10,6 +10,8 @@
 	slot = ORGAN_SLOT_EXTERNAL_HEAD_ACCESSORY
 	organ_flags = ORGAN_UNREMOVABLE
 
+	preference = "feature_head_accessory"
+
 	bodypart_overlay = /datum/bodypart_overlay/mutant/head_accessory
 
 /datum/bodypart_overlay/mutant/head_accessory

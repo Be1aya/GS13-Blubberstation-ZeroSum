@@ -404,8 +404,8 @@
 
 /obj/item/claymore/weak
 	desc = "This one is rusted."
-	force = 30
-	armour_penetration = 15
+	force = 24
+	armour_penetration = 10
 
 /obj/item/claymore/weak/make_stabby()
 	AddComponent(/datum/component/alternative_sharpness, SHARP_POINTY, alt_continuous, alt_simple, -9)

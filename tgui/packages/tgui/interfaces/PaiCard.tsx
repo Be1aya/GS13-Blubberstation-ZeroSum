@@ -36,8 +36,8 @@ type Pai = {
   name: string;
   transmit: BooleanLike;
   receive: BooleanLike;
-  leashed: BooleanLike;
   range: number;
+  leash_enabled: BooleanLike; // SKYRAT EDIT ADDITION
 };
 
 export const PaiCard = (props) => {
@@ -163,8 +163,8 @@ const PaiOptions = (props) => {
       name,
       transmit,
       receive,
-      leashed,
       range,
+      leash_enabled /* SKYRAT EDIT ADDITION */,
     },
   } = data;
   const suppliedLaws = laws[0] ? decodeHtmlEntities(laws[0]) : 'None';
@@ -196,22 +196,31 @@ const PaiOptions = (props) => {
             Toggle
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Leash">
-          <Button
-            icon={leashed ? 'toggle-on' : 'toggle-off'}
-            onClick={() => act('toggle_leash')}
-            selected={leashed}
-          >
-            {leashed ? 'Unleash' : 'Leash'}
-          </Button>
-        </LabeledList.Item>
+        {/* SKYRAT EDIT ADDITION START */}
+        {!emagged && (
+          <LabeledList.Item label="Holoform Leashed">
+            <Button
+              icon={leash_enabled ? 'toggle-off' : 'toggle-on'}
+              onClick={() => act('toggle_leash')}
+              selected={leash_enabled}
+              tooltip="Whether or not the holoform is able to roam freely outside of its range."
+            >
+              Toggle
+            </Button>
+          </LabeledList.Item>
+        )}
+        {/* SKYRAT EDIT ADDITION END */}
         <LabeledList.Item label="Holoform Range">
+          {emagged ? (
+            '∞'
+          ) : (
             <Stack>
               <Stack.Item>
                 <Button
                   icon="fa-circle-minus"
                   onClick={() => act('decrease_range')}
-                  disabled={range === range_min}
+                  /* SKYRAT EDIT CHANGE ORIGINAL: disabled={range === range_max} */
+                  disabled={!leash_enabled || range === range_min}
                 />
               </Stack.Item>
               <Stack.Item mt={0.5}>{range}</Stack.Item>
@@ -219,10 +228,12 @@ const PaiOptions = (props) => {
                 <Button
                   icon="fa-circle-plus"
                   onClick={() => act('increase_range')}
-                  disabled={range === range_max}
+                  /* SKYRAT EDIT CHANGE ORIGINAL: disabled={range === range_max} */
+                  disabled={!leash_enabled || range === range_max}
                 />
               </Stack.Item>
             </Stack>
+          )}
         </LabeledList.Item>
         <LabeledList.Item label="Transmit">
           <Button

@@ -92,7 +92,7 @@ LINEN BINS
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/bedsheet/attack_self(mob/living/user)
-	if(!IsReachableBy(user)) //No telekinetic grabbing.
+	if(!user.CanReach(src)) //No telekinetic grabbing.
 		return
 	if(user.body_position != LYING_DOWN)
 		return

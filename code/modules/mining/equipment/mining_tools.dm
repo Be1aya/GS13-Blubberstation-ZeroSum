@@ -73,10 +73,6 @@
 	hitsound = 'sound/items/weapons/drill.ogg'
 	desc = "An electric mining drill for the especially scrawny."
 
-/obj/item/pickaxe/drill/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/cuffable_item) //closed handle
-
 /obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"

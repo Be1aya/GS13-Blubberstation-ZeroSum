@@ -363,7 +363,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	implants = list(
 		/obj/item/implant/weapons_auth,
-		/obj/item/implant/kaza_ruk
+		/obj/item/implant/krav_maga
 		)
 
 /datum/outfit/persistence/command/corporateliaison
@@ -383,7 +383,6 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/crowbar = 1,
 		/obj/item/choice_beacon/syndicateoffstation/morale = 1,
-		/obj/item/storage/lockbox/medal/bubber/synd = 1,
 		)
 	head = /obj/item/clothing/head/hats/hos/cap/syndicate
 	id = /obj/item/card/id/advanced/gold/generic

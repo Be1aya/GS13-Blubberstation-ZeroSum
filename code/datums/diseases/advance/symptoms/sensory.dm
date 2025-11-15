@@ -96,8 +96,7 @@
 		if(4, 5)
 			if(advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EARS))
 				var/obj/item/organ/ears/ears = infected_mob.get_organ_slot(ORGAN_SLOT_EARS)
-				ears?.apply_organ_damage(-4)
-				ears?.adjust_temporary_deafness(-8 SECONDS)
+				ears.adjustEarDamage(-4, -4)
 
 			if(!advanced_disease.has_required_infectious_organ(infected_mob, ORGAN_SLOT_EYES))
 				return

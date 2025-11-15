@@ -33,10 +33,8 @@
 	if(!typing_indicators)
 		return FALSE
 	/// Special exemptions
-	/* BUBBER EDIT REMOVAL BEGIN
 	if(isabductor(mob))
 		return FALSE
-	END */
 	ADD_TRAIT(mob, TRAIT_THINKING_IN_CHARACTER, CURRENTLY_TYPING_TRAIT)
 	mob.create_thinking_indicator()
 

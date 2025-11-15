@@ -173,13 +173,28 @@
 	//. += NAMEOF(src, locked)
 	return .
 
-/obj/machinery/power/apc/Initialize(mapload)
+/obj/machinery/power/apc/Initialize(mapload, ndir)
 	. = ..()
-	setDir(dir)
 	//APCs get added to their own processing tasks for the machines subsystem.
 	if (!(datum_flags & DF_ISPROCESSING))
 		datum_flags |= DF_ISPROCESSING
 		SSmachines.processing_apcs += src
+
+	//Pixel offset its appearance based on its direction
+	dir = ndir
+	switch(dir)
+		if(NORTH)
+			offset_old = pixel_y
+			pixel_y = APC_PIXEL_OFFSET
+		if(SOUTH)
+			offset_old = pixel_y
+			pixel_y = -APC_PIXEL_OFFSET
+		if(EAST)
+			offset_old = pixel_x
+			pixel_x = APC_PIXEL_OFFSET
+		if(WEST)
+			offset_old = pixel_x
+			pixel_x = -APC_PIXEL_OFFSET
 
 	var/image/hud_image = image(icon = 'icons/mob/huds/hud.dmi', icon_state = "apc_hacked")
 	hud_image.pixel_w = pixel_x
@@ -246,8 +261,7 @@
 
 	AddElement(/datum/element/contextual_screentip_bare_hands, rmb_text = "Toggle interface lock")
 	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
-	if(mapload)
-		find_and_hang_on_wall()
+	find_and_hang_on_wall()
 
 /obj/machinery/power/apc/Destroy()
 	if(malfai)
@@ -262,22 +276,6 @@
 	if(terminal)
 		disconnect_terminal()
 	return ..()
-
-/obj/machinery/power/apc/setDir(newdir)
-	. = ..()
-	switch(newdir)
-		if(NORTH)
-			offset_old = pixel_y
-			pixel_y = APC_PIXEL_OFFSET
-		if(SOUTH)
-			offset_old = pixel_y
-			pixel_y = -APC_PIXEL_OFFSET
-		if(EAST)
-			offset_old = pixel_x
-			pixel_x = APC_PIXEL_OFFSET
-		if(WEST)
-			offset_old = pixel_x
-			pixel_x = -APC_PIXEL_OFFSET
 
 /obj/machinery/power/apc/on_saboteur(datum/source, disrupt_duration)
 	. = ..()

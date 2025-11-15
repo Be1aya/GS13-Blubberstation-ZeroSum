@@ -144,7 +144,6 @@
 	QDEL_NULL(malf_picker)
 	QDEL_NULL(doomsday_device)
 	QDEL_NULL(robot_control)
-	QDEL_NULL(status_display_picker)
 	QDEL_NULL(aiMulti)
 	QDEL_NULL(alert_control)
 	QDEL_NULL(ai_tracking_tool)
@@ -177,6 +176,12 @@
 		icon_state = initial(icon_state)
 	else
 		var/preferred_icon = input ? input : C.prefs.read_preference(/datum/preference/choiced/ai_core_display)
+		// GS13 EDIT CFC AI. This is not modular because I don't expect us to have a second AI icon anytime so- FUCK WE HAVE THE OTHER ONES
+		if (input == "cfc")
+			icon = 'modular_gs/icons/mob/silicon/ai.dmi'
+		else
+			icon = 'icons/mob/silicon/ai.dmi'
+		// GS13 END EDIT
 		icon_state = resolve_ai_icon(preferred_icon)
 
 /// Apply an AI's hologram preference
@@ -196,9 +201,7 @@
 		var/emote_choice = player_client.prefs.read_preference(/datum/preference/choiced/ai_emote_display)
 
 		if(emote_choice == "Random")
-			if(!length(GLOB.ai_status_display_all_options))
-				init_ai_status_display_options()
-			emote_choice = pick(GLOB.ai_status_display_all_options)
+			emote_choice = pick(GLOB.ai_status_display_emotes)
 
 		apply_emote_display(emote_choice)
 
@@ -211,28 +214,32 @@
 /mob/living/silicon/ai/verb/pick_icon()
 	set category = "AI Commands"
 	set name = "Set AI Core Display"
-	set desc = "Choose what appears on your AI core display"
-
 	if(incapacitated)
-		to_chat(src, span_warning("You cannot access the core display controls in your current state."))
+		return
+	icon = initial(icon)
+	icon_state = "ai"
+	cut_overlays()
+	var/list/iconstates = GLOB.ai_core_display_screens
+	for(var/option in iconstates)
+		if(option == "Random")
+			iconstates[option] = image(icon = src.icon, icon_state = "ai-random")
+			continue
+		if(option == "Portrait")
+			iconstates[option] = image(icon = src.icon, icon_state = "ai-portrait")
+			continue
+		if(option == "cfc")
+			iconstates[option] = image(icon = 'modular_gs/icons/mob/silicon/ai.dmi', icon_state = "ai-cfc")
+			continue
+		iconstates[option] = image(icon = src.icon, icon_state = resolve_ai_icon(option))
+
+	view_core()
+	var/ai_core_icon = show_radial_menu(src, src , iconstates, radius = 42)
+
+	if(!ai_core_icon || incapacitated)
 		return
 
-	if(!core_display_picker)
-		core_display_picker = new(src)
-	core_display_picker.ui_interact(src)
-
-/mob/living/silicon/ai/verb/pick_status_display()
-	set category = "AI Commands"
-	set name = "Set AI Status Display"
-	set desc = "Choose what appears on status displays around the station"
-
-	if(incapacitated)
-		to_chat(src, span_warning("You cannot access the status display controls in your current state."))
-		return
-
-	if(!status_display_picker)
-		status_display_picker = new(src)
-	status_display_picker.ui_interact(src)
+	display_icon_override = ai_core_icon
+	set_core_display_icon(ai_core_icon)
 
 /mob/living/silicon/ai/get_status_tab_items()
 	. = ..()
@@ -310,7 +317,7 @@
 		return ISINRANGE(target_turf.x, ai_turf.x - interaction_range, ai_turf.x + interaction_range) \
 			&& ISINRANGE(target_turf.y, ai_turf.y - interaction_range, ai_turf.y + interaction_range)
 	else
-		return SScameras.is_visible_by_cameras(target_turf)
+		return GLOB.cameranet.checkTurfVis(target_turf)
 
 /mob/living/silicon/ai/cancel_camera()
 	view_core()
@@ -432,7 +439,7 @@
 		return
 
 	if (href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"]) in SScameras.cameras)
+		switchCamera(locate(href_list["switchcamera"]) in GLOB.cameranet.cameras)
 	if (href_list["showalerts"])
 		alert_control.ui_interact(src)
 #ifdef AI_VOX
@@ -476,7 +483,7 @@
 		if(controlled_equipment)
 			to_chat(src, span_warning("You are already loaded into an onboard computer!"))
 			return
-		if(!SScameras.is_visible_by_cameras(M))
+		if(!GLOB.cameranet.checkCameraVis(M))
 			to_chat(src, span_warning("Exosuit is no longer near active cameras."))
 			return
 		if(!isturf(loc))
@@ -521,7 +528,7 @@
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
 		call_bot(turf_check)
-	else if(SScameras.is_visible_by_cameras(turf_check))
+	else if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(turf_check))
 		call_bot(turf_check)
 	else
 		to_chat(src, span_danger("Selected location is not visible."))
@@ -579,7 +586,7 @@
 
 	var/mob/living/silicon/ai/U = usr
 
-	for (var/obj/machinery/camera/C in SScameras.cameras)
+	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		var/turf/camera_turf = get_turf(C) //get camera's turf in case it's built into something so we don't get z=0
 
 		var/list/tempnetwork = C.network
@@ -601,7 +608,7 @@
 	if(isnull(network))
 		network = old_network // If nothing is selected
 	else
-		for(var/obj/machinery/camera/C in SScameras.cameras)
+		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
 			if(network in C.network)
@@ -807,7 +814,7 @@
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
-		return (SScameras.is_visible_by_cameras(get_turf_pixel(A)) || (A == apc_override))
+		return ((GLOB.cameranet && GLOB.cameranet.checkTurfVis(get_turf_pixel(A))) || (A == apc_override))
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have X-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)
@@ -1046,7 +1053,7 @@
 	. = ..()
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/eye/camera/ai/moved_eye)
-	SScameras.update_eye_chunk(moved_eye)
+	GLOB.cameranet.visibility(moved_eye)
 
 /mob/living/silicon/ai/forceMove(atom/destination)
 	. = ..()
@@ -1080,7 +1087,7 @@
 		REMOVE_TRAIT(src, TRAIT_INCAPACITATED, POWER_LACK_TRAIT)
 
 /mob/living/silicon/ai/proc/show_camera_list()
-	var/list/cameras = SScameras.get_available_camera_by_tag_list(network)
+	var/list/cameras = GLOB.cameranet.get_available_camera_by_tag_list(network)
 	var/camera_tag = tgui_input_list(src, "Choose which camera you want to view", "Cameras", cameras)
 	if(isnull(camera_tag))
 		return

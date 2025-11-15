@@ -313,19 +313,17 @@
 	addtimer(TRAIT_CALLBACK_REMOVE(fish, TRAIT_FISH_ELECTROGENESIS, type), fish.feeding_frequency * 0.75, TIMER_UNIQUE|TIMER_OVERRIDE)
 	return TRUE
 
-/datum/reagent/teslium/on_mob_metabolize(mob/living/carbon/affected_mob)
+/datum/reagent/teslium/on_mob_metabolize(mob/living/carbon/human/affected_mob)
 	. = ..()
-	if(!ishuman(affected_mob))
+	if(!istype(affected_mob))
 		return
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.siemens_coeff *= 2
+	affected_mob.physiology.siemens_coeff *= 2
 
-/datum/reagent/teslium/on_mob_end_metabolize(mob/living/carbon/affected_mob)
+/datum/reagent/teslium/on_mob_end_metabolize(mob/living/carbon/human/affected_mob)
 	. = ..()
-	if(!ishuman(affected_mob))
+	if(!istype(affected_mob))
 		return
-	var/mob/living/carbon/human/affected_human = affected_mob
-	affected_human.physiology.siemens_coeff *= 0.5
+	affected_mob.physiology.siemens_coeff *= 0.5
 
 /datum/reagent/teslium/energized_jelly
 	name = "Energized Jelly"

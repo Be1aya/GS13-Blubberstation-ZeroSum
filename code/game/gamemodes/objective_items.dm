@@ -295,10 +295,11 @@ GLOBAL_DATUM_INIT(steal_item_handler, /datum/objective_item_handler, new())
 	steal_hint = "A self-defense weapon standard-issue for all heads of staffs barring the Head of Security. Rarely found off of their person."
 
 /datum/objective_item/steal/traitor/telebaton/check_special_completion(obj/item/thing)
-	return !istype(thing, /obj/item/melee/baton/telescopic/contractor_baton)
+	return thing.type == /obj/item/melee/baton/telescopic
 
 /obj/item/melee/baton/telescopic/add_stealing_item_objective()
-	return add_item_to_steal(src, /obj/item/melee/baton/telescopic)
+	if(type == /obj/item/melee/baton/telescopic)
+		return add_item_to_steal(src, /obj/item/melee/baton/telescopic)
 
 /datum/objective_item/steal/traitor/cargo_budget
 	name = "cargo's departmental budget"
@@ -401,15 +402,15 @@ GLOBAL_DATUM_INIT(steal_item_handler, /datum/objective_item_handler, new())
 
 /datum/objective_item/steal/jetpack
 	name = "the Captain's jetpack"
-	targetitem = /obj/item/tank/jetpack/captain
+	targetitem = /obj/item/tank/jetpack/oxygen/captain
 	excludefromjob = list(JOB_CAPTAIN)
 	item_owner = list(JOB_CAPTAIN)
 	exists_on_map = TRUE
 	difficulty = 3
 	steal_hint = "A special yellow jetpack found in the Suit Storage Unit in the Captain's Quarters."
 
-/obj/item/tank/jetpack/captain/add_stealing_item_objective()
-	return add_item_to_steal(src, /obj/item/tank/jetpack/captain)
+/obj/item/tank/jetpack/oxygen/captain/add_stealing_item_objective()
+	return add_item_to_steal(src, /obj/item/tank/jetpack/oxygen/captain)
 
 /datum/objective_item/steal/magboots
 	name = "the chief engineer's advanced magnetic boots"

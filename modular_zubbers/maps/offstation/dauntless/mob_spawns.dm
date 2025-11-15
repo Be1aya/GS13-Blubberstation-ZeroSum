@@ -328,7 +328,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	implants = list(
 		/obj/item/implant/weapons_auth,
-		/obj/item/implant/kaza_ruk
+		/obj/item/implant/krav_maga
 		)
 
 /datum/outfit/dauntless/command/corporateliaison
@@ -344,12 +344,6 @@
 	uniform = /obj/item/clothing/under/rank/captain/skyrat/utility/syndicate
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	back = /obj/item/storage/backpack/satchel
-	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
-		/obj/item/crowbar = 1,
-		/obj/item/choice_beacon/syndicateoffstation/morale = 1,
-		/obj/item/storage/lockbox/medal/bubber/synd = 1,
-		)
 	belt = /obj/item/gun/ballistic/automatic/pistol/aps
 	head = /obj/item/clothing/head/hats/hos/cap/syndicate
 	id = /obj/item/card/id/advanced/gold/generic

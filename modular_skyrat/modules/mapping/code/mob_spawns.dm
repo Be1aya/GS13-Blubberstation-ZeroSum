@@ -138,17 +138,17 @@
 	mob_type = /mob/living/carbon/human/species/lizard/ashwalker;
 	outfit = /datum/outfit/consumed_ashwalker
 
-/obj/effect/mob_spawn/ghost_role/human/oldstation/sec
+/obj/effect/mob_spawn/ghost_role/human/oldsec
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 
-/obj/effect/mob_spawn/ghost_role/human/oldstation/sci
+/obj/effect/mob_spawn/ghost_role/human/oldsci
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 
-/obj/effect/mob_spawn/ghost_role/human/oldstation/eng
+/obj/effect/mob_spawn/ghost_role/human/oldeng
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
@@ -307,7 +307,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	implants = list(
 		/obj/item/implant/weapons_auth,
-		/obj/item/implant/kaza_ruk
+		/obj/item/implant/krav_maga
 		)
 
 /datum/outfit/ds2/syndicate_command/corporateliaison
@@ -324,9 +324,6 @@
 	uniform = /obj/item/clothing/under/rank/captain/skyrat/utility/syndicate
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	back = /obj/item/storage/backpack/satchel
-	backpack_contents = list(
-		/obj/item/storage/lockbox/medal/bubber/synd = 1,
-		)
 	belt = /obj/item/storage/belt/sheath/sabre
 	head = /obj/item/clothing/head/hats/hos/cap/syndicate
 	id = /obj/item/card/id/advanced/gold/generic

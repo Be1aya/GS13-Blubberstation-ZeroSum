@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 /datum/fishing_challenge/proc/on_float_or_user_move(datum/source)
 	SIGNAL_HANDLER
 
-	if(!location.IsReachableBy(user))
+	if(!user.CanReach(location))
 		user.balloon_alert(user, "too far!")
 		interrupt()
 

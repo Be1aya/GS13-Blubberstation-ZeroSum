@@ -1,5 +1,3 @@
-/datum/outfit/job/curator
-	skillchips = list(/obj/item/skillchip/xenoarch_magnifier)
 
 // second fallback just in case the map is missing both the curator display case and codex gigas
 /datum/job/curator/after_spawn(mob/living/spawned, client/player_client)

@@ -1,9 +1,3 @@
-/datum/job/engineering_guard
-	alt_titles = list(
-		"Engineering Guard",
-		"Atmospheric Security",
-	)
-
 /datum/job/security_medic
 	alt_titles = list(
 		"Security Medic",
@@ -24,7 +18,6 @@
 //New titles for Blacksmith
 /datum/job/blacksmith
 	alt_titles = list(
-		"Blacksmith",
 		"Ithastrist",
 		"Metalurgist",
 		"Metal Worker",
@@ -37,7 +30,6 @@
 
 /datum/job/bridge_assistant
 	alt_titles = list(
-		"Bridge Assistant",
 		"Bridge Secretary",
 		"Bridge Coffee Maker",
 		"Command Deck Assistant",
