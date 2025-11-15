@@ -130,6 +130,9 @@ SUBSYSTEM_DEF(gamemode)
 	var/sec_crew = 0
 	var/med_crew = 0
 
+	//Security Based Antag Cap
+	var/sec_antag_cap = 0
+
 	/// Whether we looked up pop info in this process tick
 	var/pop_data_cached = FALSE
 
@@ -243,7 +246,7 @@ SUBSYSTEM_DEF(gamemode)
 		return 0
 	if(!storyteller.antag_divisor)
 		return 0
-	return round(max(min(get_correct_popcount() / storyteller.antag_divisor + sec_crew ,sec_crew * 1.5),ANTAG_CAP_FLAT))
+	return round(max(min(get_correct_popcount() / storyteller.antag_divisor + sec_antag_cap ,sec_antag_cap * 1.5),ANTAG_CAP_FLAT))
 
 /// Whether events can inject more antagonists into the round
 /datum/controller/subsystem/gamemode/proc/can_inject_antags()
@@ -416,6 +419,7 @@ SUBSYSTEM_DEF(gamemode)
 	eng_crew = 0
 	med_crew = 0
 	sec_crew = 0
+	sec_antag_cap = 0
 
 	for(var/mob/player_mob as anything in GLOB.alive_player_list)
 
@@ -452,6 +456,7 @@ SUBSYSTEM_DEF(gamemode)
 			med_crew++
 		if(player_role.departments_bitflags & DEPARTMENT_BITFLAG_SECURITY)
 			sec_crew++
+			sec_antag_cap += player_role.sec_antag_cap
 
 	pop_data_cached = TRUE
 
@@ -656,10 +661,10 @@ SUBSYSTEM_DEF(gamemode)
 		return
 	var/list/decoded = json_decode(file2text(json_file))
 	for(var/event_text_path in decoded)
-		var/event_path = text2path(event_text_path)
+		//GS13 EDIT - ORIGINAL var/event_path = text2path(event_text_path)
 		var/datum/round_event_control/event
 		for(var/datum/round_event_control/iterated_event as anything in control)
-			if(iterated_event.type == event_path)
+			if(iterated_event.name == event_text_path) // GS13 EDIT - Original : if(iterated_event.type == event_path)
 				event = iterated_event
 				break
 		if(!event)
@@ -787,7 +792,7 @@ SUBSYSTEM_DEF(gamemode)
 
 	log_dynamic("[players.len] players ready! Processing storyteller vote results.")
 
-	for(var/vote as anything in vote_datum.choices_by_ckey)
+	for(var/vote in vote_datum.choices_by_ckey)
 		if(!vote_datum.choices_by_ckey[vote])
 			continue
 		var/vote_string = "[vote]"

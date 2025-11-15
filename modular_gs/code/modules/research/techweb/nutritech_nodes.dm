@@ -15,8 +15,8 @@
 		"primitive_bluespace_belt",
 		// "adipoelectric_transformer",
 		// "adipoelectric_generator",
-		// "cookie_synthesizer",
-		// "borg_upgrade_cookiesynthesizer",
+		"cookie_synthesizer",
+		"borg_upgrade_cookiesynthesizer",
 		// "borg_upgrade_feedingtube",
 		// "ci-fatmobility",
 		// "bluespace_collar_receiver",
@@ -42,7 +42,7 @@
 		"alter_ray_metabolism",
 		"alter_ray_reverser",
 		// "borg_upgrade_fatoray",
-		// "bwomf_nanites",
+		"bwomf_nanites",
 		// "docility_implant"
 		)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_3_POINTS)

@@ -240,7 +240,7 @@
 			return ITEM_INTERACT_BLOCKING
 
 		//select cable layer
-		var/terminal_cable_layer
+		var/terminal_cable_layer = installing_cable.target_layer
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			var/choice = tgui_input_list(user, "Select Power Input Cable Layer", "Select Cable Layer", GLOB.cable_name_to_layer)
 			if(isnull(choice) \
@@ -537,6 +537,10 @@
 
 /obj/machinery/power/smes/engineering
 	charge = 50 * STANDARD_BATTERY_CHARGE // Engineering starts with some charge for singulo //sorry little one, singulo as engine is gone
+	output_level = 90 KILO WATTS
+
+/obj/machinery/power/smes/super/full_engineering //GS13 - our own variant for maps
+	charge = 100 * STANDARD_BATTERY_CHARGE // Engineering starts with some charge for singulo //sorry little one, singulo as engine is gone
 	output_level = 90 KILO WATTS
 
 /obj/machinery/power/smes/magical
