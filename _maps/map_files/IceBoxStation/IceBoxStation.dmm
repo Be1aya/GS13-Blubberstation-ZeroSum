@@ -18074,10 +18074,7 @@
 /obj/effect/turf_decal/siding/wideplating{
 	dir = 4
 	},
-/obj/machinery/computer/security/telescreen/entertainment/directional/east{
-	pixel_x = 0;
-	pixel_y = 31
-	},
+/obj/machinery/computer/security/telescreen/entertainment/directional/north,
 /turf/open/floor/wood/parquet,
 /area/station/commons/dorms)
 "eQO" = (
@@ -32361,9 +32358,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/machinery/door/window{
-	dir = 1
-	},
+/obj/machinery/door/window/left/directional/north,
 /turf/open/floor/iron/white/small,
 /area/station/commons/dorms)
 "iRo" = (
@@ -80481,13 +80476,11 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/structure/rack/shelf,
 /obj/item/towel,
 /obj/item/towel,
 /obj/item/soap/gato,
+/obj/structure/window/reinforced/spawner/directional/north,
 /turf/open/floor/iron/white/small,
 /area/station/commons/dorms)
 "wes" = (
