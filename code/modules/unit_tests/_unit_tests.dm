@@ -274,7 +274,7 @@
 #include "security_levels.dm"
 #include "security_officer_distribution.dm"
 #include "serving_tray.dm"
-// GS13 EDIT IGNORE THIS #include "simple_animal_freeze.dm"
+#include "simple_animal_freeze.dm"
 #include "siunit.dm"
 #include "slime_mood.dm"
 #include "slips.dm"
