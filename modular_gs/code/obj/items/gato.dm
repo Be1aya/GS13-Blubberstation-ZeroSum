@@ -108,7 +108,7 @@
 	name = "elite environmental protection bag"
 	desc = "A folded, heavily reinforced, and insulated bag, capable of fully isolating its contents from external factors."
 	icon = 'modular_gs/icons/obj/medical.dmi'
-	icon_state = "ntenvirobag_folded"
+	icon_state = "gtenvirobag_folded"
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/gato
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
