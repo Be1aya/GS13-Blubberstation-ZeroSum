@@ -14,7 +14,7 @@
 	name = "Natural insulation"
 	desc = "All that heft you carry around keeps you nice and warm! You are less affected by temperatures depending on your weight."
 	icon = "fa-weight-hanging"
-	// medical_record_text = "Patients legs cannot carry heavy weights well."
+	medical_record_text = "Patient's adipose appears to make them more resistant to lower temperatures."
 	value = 2
 	// gain_text = span_notice("You feel your legs tremble under your weight")
 	// lose_text = span_notice("Your legs seem to have gotten stronger")
