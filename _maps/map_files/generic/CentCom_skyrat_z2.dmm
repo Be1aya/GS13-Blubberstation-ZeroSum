@@ -5375,7 +5375,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = -11;
 	pixel_y = 0
 	},
@@ -6265,7 +6264,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = 10;
 	pixel_y = 0
 	},
@@ -6336,7 +6334,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = -11;
 	pixel_y = 0
 	},
@@ -8875,7 +8872,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = 10;
 	pixel_y = 0
 	},
@@ -11686,7 +11682,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = 10;
 	pixel_y = 0
 	},
@@ -13536,7 +13531,6 @@
 /obj/item/flashlight/lantern{
 	anchored = 1;
 	icon_state = "lantern-on";
-	on = 1;
 	pixel_x = -11;
 	pixel_y = 0
 	},
